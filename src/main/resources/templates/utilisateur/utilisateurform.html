@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Ajouter Utilisateur</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h3>Gestion des Utilisateurs</h3>
+    <hr>
+
+    <p class="h4 mb-4">Ajouter Utilisateur</p>
+
+    <form action="#" th:action="@{/utilisateurs/addutilisateur}" th:object="${utilisateur}" method="POST">
+
+        <!-- Add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" th:field="*{nom}" class="form-control" id="nom" placeholder="Nom">
+        </div>
+
+        <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" th:field="*{prenom}" class="form-control" id="prenom" placeholder="Prénom">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label for="motDePasse">Mot de passe</label>
+            <input type="password" th:field="*{motDePasse}" class="form-control" id="motDePasse" placeholder="Mot de passe">
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" id="role" name="role" th:field="*{role}">
+                <option value="user">Utilisateur</option>
+                <option value="admin">Administrateur</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-info col-2">Enregistrer</button>
+    </form>
+    <hr>
+    <a th:href="@{/utilisateurs/retrieve-all-utilisateurs}">Retour à la liste des utilisateurs</a>
+
+</div>
+</body>
+
+</html>

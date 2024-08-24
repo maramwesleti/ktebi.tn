@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+
+        }
+    </style>
+    <title>Liste des Auteurs</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Liste des Auteurs</h3>
+    <hr>
+
+    <!-- Add button -->
+    <a th:href="@{/index}" class="btn btn-primary btn-sm mb-3">Accueil</a>
+    <a th:href="@{/auteur/add}" class="btn btn-primary btn-sm mb-3">Ajouter Auteur</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date de Naissance</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="auteur : ${listAuteurs}">
+            <td th:text="${auteur.id}" />
+            <td th:text="${auteur.nom}" />
+            <td th:text="${auteur.prenom}" />
+            <td th:text="${auteur.dateNaissance}" />
+            <td>
+                <!-- Update button/link -->
+                <a th:href="@{/auteur/update(auteurId=${auteur.id})}" class="btn btn-info btn-sm">Modifier</a>
+                <!-- Delete button/link -->
+                <a th:href="@{/auteur/delete(auteurId=${auteur.id})}" class="btn btn-danger btn-sm" onClick="if (!(confirm('Êtes-vous sûr de vouloir supprimer cet auteur?'))) return false">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

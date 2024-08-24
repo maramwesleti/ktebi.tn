@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Accueil - Liste des Livres</title>
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+
+        .imageDiv {
+            position: relative;
+            top: 0;
+            height: 250px; /* Adjust height as needed */
+            background-image: url('https://i.pinimg.com/564x/a5/33/0c/a5330c034fb86cb33139c6ff9ff9974c.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        h1 {
+            text-align: center;
+            top: 0;
+            margin-left: 15%;
+            margin-top: 9%;
+            position: absolute;
+        }
+
+        .books {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .book {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 10%;
+                        border-radius: 8px;
+            text-align: center;
+        }
+
+        .book img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .book h3 {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .book p {
+            font-size: 14px;
+        }
+
+        .read-later-button {
+            background-color: #4CAF50; /* Vert de fond */
+            border: none; /* Pas de bordure */
+            color: white; /* Couleur du texte en blanc */
+            padding: 10px 20px; /* Espacement interne */
+            text-align: center; /* Alignement du texte */
+            text-decoration: none; /* Pas de soulignement */
+            display: inline-block; /* Affichage en ligne */
+            font-size: 16px; /* Taille de la police */
+            margin: 4px 2px; /* Marges */
+            cursor: pointer; /* Curseur en pointeur */
+            border-radius: 8px; /* Bords arrondis */
+        }
+
+        .read-later-button:hover {
+            background-color: #45a049; /* Couleur de fond au survol */
+        }
+
+        .read-later-button h5 {
+            margin: 0; /* Pas de marge autour du titre */
+            padding: 0; /* Pas d'espacement interne */
+            font-size: 18px; /* Taille de la police du titre */
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="imageDiv"></div>
+    <h1>Bienvenue sur ktebi.tn</h1>
+    <th:block th:if="${utilisateurConnecte != null}">
+    <div class="books">
+        <!-- Itération sur la liste des livres -->
+        <div class="book" th:each="livre : ${livres}">
+            <h3 th:text="${livre.titre}">Titre du Livre</h3>
+            <img th:src="${livre.image}" alt="Livre">
+            <h5>ecrit par:</h5>
+            <h5 th:each="auteur : ${livre.auteurs}" th:text="${auteur.nom + ' ' + auteur.prenom}" ></h5>
+            <h5>En :</h5>
+            <h5 th:text="${#temporals.format(livre.datePublication, 'dd-MM-yyyy')}" ></h5>
+            <hr>
+
+
+
+            <form th:action="@{/utilisateurs/addLivretoread}" method="POST">
+                <input type="hidden" name="livreId" th:value="${livre.id}" />
+                <input type="hidden" name="utilisateurId" th:value="${utilisateurConnecte.id}" />
+
+
+                <button type="submit"  class="read-later-button">
+                    <h5>read later</h5>
+                </button>
+            </form>
+
+            <a th:href="@{/livres/contenu(livreId=${livre.id})}">Read Now </a>
+        </div>
+    </div>
+    </th:block>
+    <!-- Ajoutez d'autres livres de la même manière -->
+</div>
+</body>
+</html>

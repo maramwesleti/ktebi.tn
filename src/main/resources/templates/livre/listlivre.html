@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Liste des Livres</title>
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+
+        }
+</style>
+        </head>
+
+<body>
+
+<div class="container">
+
+    <h3>Liste des Livres</h3>
+    <hr>
+
+    <!-- Add button -->
+    <a th:href="@{/index}" class="btn btn-primary btn-sm mb-3">Accueil</a>
+    <a th:href="@{/livres/add}" class="btn btn-primary btn-sm mb-3">Ajouter Livre</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Auteurs</th>
+            <th>Categorie</th>
+            <th>Contenu</th>
+            <th>Date de Publication</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="livre : ${livres}">
+            <td th:text="${livre.id}" />
+            <td th:text="${livre.titre}" />
+            <!-- Utilisation d'une boucle pour afficher les auteurs -->
+            <td>
+                <ul>
+                    <li th:each="auteur : ${livre.auteurs}" th:text="${auteur.nom + ' ' + auteur.prenom}" />
+                </ul>
+            </td>
+
+            <td th:text="${livre.categorie}" />
+
+            <td th:text="${livre.contenu}" />
+
+            <td th:text="${livre.datePublication}" />
+
+            <td>
+                <img th:src="${livre.image}" class="" height="180px"  width="100" alt="Image du livre">
+            </td>
+
+
+
+            </td>
+
+
+
+            <td>
+                <!-- Update button/link -->
+                <a th:href="@{/livres/update(livreId=${livre.id})}" class="btn btn-info btn-sm">Modifier</a>
+                <!-- Delete button/link -->
+                <a th:href="@{/livres/delete(livreId=${livre.id})}" class="btn btn-danger btn-sm" onClick="if (!(confirm('Êtes-vous sûr de vouloir supprimer ce livre?'))) return false">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+</html>

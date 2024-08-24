@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+
+        }
+    </style>
+    <title>Modifier Livre</title>
+</head>
+
+<body>
+<div class="container">
+    <h3>Gestion Des Livres</h3>
+    <hr>
+
+    <p class="h4 mb-4">Modifier Livre</p>
+
+    <form action="#" th:action="@{/livres/updateLivre}"
+          th:object="${livre}" method="POST">
+
+        <!-- Add hidden form field to handle the update -->
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-group">
+            <label for="titre">Titre du livre</label>
+            <input type="text" th:field="*{titre}" id="titre" name="titre" class="form-control mb-4 col-4" placeholder="Titre du livre">
+        </div>
+
+        <div class="form-group">
+            <label for="categorie">Catégorie</label>
+            <input type="text" th:field="*{categorie}" id="categorie" name="categorie" class="form-control mb-4 col-4" placeholder="Nom de la catégorie">
+        </div>
+
+        <div class="form-group">
+            <label>Auteurs</label><br>
+            <div th:each="auteur : ${auteurs}">
+                <input type="checkbox" th:id="'auteur_' + ${auteur.id}" th:name="auteurIds" th:value="${auteur.id}"
+                       th:checked="${livre.auteurs.contains(auteur)}">
+                <label th:for="'auteur_' + ${auteur.id}" th:text="${auteur.nom} + ' ' + ${auteur.prenom}"></label><br>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="datePublication">Date de publication</label>
+            <input type="date" th:field="*{datePublication}" id="datePublication" name="datePublication" class="form-control mb-4 col-4" placeholder="Date de publication du livre">
+        </div>
+
+        <div class="form-group">
+            <label for="contenu">Contenu du livre</label>
+            <textarea th:field="*{contenu}" id="contenu" name="contenu" class="form-control mb-4 col-4" placeholder="Contenu du livre"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="form_label">Image du livre</label>
+
+            <input type="text" th:field="*{image}" id="image" name="image" class="form-control mb-4 col-4" >
+        </div>
+
+        <button type="submit" class="btn btn-info col-2">Enregistrer</button>
+    </form>
+    <hr>
+    <a th:href="@{/livres/retrieve-all-livres}">Retour à la liste des livres</a>
+
+</div>
+
+
+</body>
+
+</html>

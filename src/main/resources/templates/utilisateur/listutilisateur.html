@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Liste des Utilisateurs</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Liste des Utilisateurs</h3>
+    <hr>
+
+    <!-- Add button -->
+    <a th:href="@{/index}" class="btn btn-primary btn-sm mb-3">Accueil</a>
+    <a th:href="@{/utilisateurs/add}" class="btn btn-primary btn-sm mb-3">Ajouter Utilisateur</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="utilisateur : ${utilisateurs}">
+            <td th:text="${utilisateur.id}" />
+            <td th:text="${utilisateur.nom}" />
+            <td th:text="${utilisateur.prenom}" />
+            <td th:text="${utilisateur.email}" />
+            <td>
+                <!-- Update button/link -->
+                <a th:href="@{/utilisateurs/update(utilisateurId=${utilisateur.id})}" class="btn btn-info btn-sm">Modifier</a>
+                <!-- Delete button/link -->
+                <a th:href="@{/utilisateurs/delete(utilisateurId=${utilisateur.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?'))) return false">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

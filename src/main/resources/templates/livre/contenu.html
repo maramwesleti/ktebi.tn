@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contenu du Livre</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Briem+Hand&display=swap">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Briem Hand', cursive;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            margin-bottom: 20px;
+        }
+        .favorite-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 24px;
+            color: red; /* Changez la couleur du cœur selon vos préférences */
+            cursor: pointer;
+        }
+
+        .favorite-btn:focus {
+            outline: none; /* Supprimez la bordure lors du focus */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Contenu du Livre</h1>
+    <div id="content">
+        <h5 th:text="${livre.contenu}"> </h5>
+        <!-- Le contenu du livre sera remplacé dynamiquement ici -->
+    </div>
+    <form th:action="@{/utilisateurs/addLivrefavoris}" method="POST">
+        <input type="hidden" name="livreId" th:value="${livre.id}" />
+        <input type="hidden" name="utilisateurId" th:value="${utilisateurConnecte.id}" />
+
+
+        <button type="submit" class="favorite-btn">
+            <i class="fas fa-heart"><h5>Ajouter à votre favoris</h5></i>
+        </button>
+    </form>
+</div>
+
+
+</body>
+</html>
